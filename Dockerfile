@@ -11,6 +11,11 @@ RUN npm install -g phantomjs@2.1.7 casperjs@1.1.1
 RUN gem install wraith --no-rdoc --no-ri
 RUN gem install aws-sdk --no-rdoc --no-ri
 
+# Install Chrome direct from Google
+RUN curl -sSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee  /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update && apt-get install -y google-chrome-stable
+
 # Make sure decent fonts are installed. Thanks to http://www.dailylinuxnews.com/blog/2014/09/things-to-do-after-installing-debian-jessie/
 RUN echo "deb http://ftp.us.debian.org/debian jessie main contrib non-free" | tee -a /etc/apt/sources.list
 RUN echo "deb http://security.debian.org/ jessie/updates contrib non-free" | tee -a /etc/apt/sources.list
