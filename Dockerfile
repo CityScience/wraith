@@ -1,5 +1,8 @@
 FROM ruby:2.1.2
 
+# Stop getting errors from things that expect a TTY by default
+ENV DEBIAN_FRONTEND=noninteractive
+
 # some of ruby's build scripts are written in ruby
 # we purge this later to make sure our final image uses what we just built
 RUN apt-get update
@@ -24,5 +27,8 @@ RUN apt-get install -y ttf-freefont ttf-mscorefonts-installer ttf-bitstream-vera
 
 # Make sure a recent (>6.7.7-10) version of ImageMagick is installed.
 RUN apt-get install -y imagemagick
+
+# Clean up to save space
+RUN apt-get clean
 
 ENTRYPOINT [ "wraith" ]
